@@ -1,0 +1,27 @@
+name: Auto-delete OTA release
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  expire:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check expiry and delete release if past target
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TARGET_EPOCH=1789665101
+          NOW_EPOCH=$(date -u +%s)
+          echo "Now: $NOW_EPOCH  Target: $TARGET_EPOCH (target = 2026-09-17T17:11:41Z)"
+          if [ "$NOW_EPOCH" -ge "$TARGET_EPOCH" ]; then
+            echo "Expiry reached - deleting release v1 if it exists"
+            gh release delete v1 --yes --repo "$GITHUB_REPOSITORY" || echo "Release already gone or not found"
+          else
+            echo "Not yet expired"
+          fi
