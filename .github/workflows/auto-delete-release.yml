@@ -16,7 +16,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TARGET_EPOCH=1789665101
+          TARGET_EPOCH=1789942308
           NOW_EPOCH=$(date -u +%s)
           echo "Now: $NOW_EPOCH  Target: $TARGET_EPOCH (target = 2026-09-17T17:11:41Z)"
           if [ "$NOW_EPOCH" -ge "$TARGET_EPOCH" ]; then
