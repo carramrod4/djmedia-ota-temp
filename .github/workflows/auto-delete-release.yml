@@ -18,9 +18,9 @@ jobs:
         run: |
           # 2026-09-27T22:11:48Z - extended one week from the original
           # 2026-09-20 expiry so the OTA install link stays valid.
-          TARGET_EPOCH=1791158399
+          TARGET_EPOCH=1793836799
           NOW_EPOCH=$(date -u +%s)
-          echo "Now: $NOW_EPOCH  Target: $TARGET_EPOCH (target = 2026-10-04T23:59:59Z)"
+          echo "Now: $NOW_EPOCH  Target: $TARGET_EPOCH (target = 2026-11-04T23:59:59Z)"
           if [ "$NOW_EPOCH" -ge "$TARGET_EPOCH" ]; then
             echo "Expiry reached - deleting release v1 if it exists"
             gh release delete v1 --yes --repo "$GITHUB_REPOSITORY" || echo "Release already gone or not found"
